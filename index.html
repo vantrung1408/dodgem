@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html ng-app="dodgem">
+  <head>
+    <link href="./css/app.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  </head>
+  <body ng-controller="MainController">
+    <div class="start-panel" ng-hide="gameStarted">
+      <p>
+        The board is initially set up with n-1 blue cars along the left edge and n-1 red cars along the bottom edge, the bottom left square remaining empty. Turns alternate: player 1 ("Left")'s turn is to move any one of the blue cars one space forwards (right) or sideways (up or down). Player 2 ("Right")'s turn is to move any one of the red cars one space forwards (up) or sideways (left or right).<br/><br/>
+        Cars may not move onto occupied spaces. They may leave the board, but only by a forward move. A car which leaves the board is out of the game. There are no captures. A player must always leave his opponent a legal move or else forfeit the game.<br/><br/>
+        The winner is the player who first gets all his pieces off the board, or has all his cars blocked in by their opponent.
+      </p>
+      <p>-- Wikipedia --</p>
+      <div>
+        <p>Are you want move first?</p>
+        <button ng-click="initGame(true)">Yes</button>
+        <button ng-click="initGame(false)">No</button>
+      </div>
+    </div>
+    <div class="game-wrapper" ng-show="gameStarted">
+      <div>
+        <div class="info-panel">
+          <p class="turn-info" ng-hide="!gameProperties.thisMatch.playerLeft || !gameProperties.thisMatch.comLeft">{{lastMoved ? 'COM' : 'YOUR'}} TURN</p>
+          <p><b>Overview:</b></p>
+          <div>
+            <p>Number of match played: {{gameProperties.played}}</p>
+            <p>YOU win: {{gameProperties.playerWin}} - COM win: {{gameProperties.played - gameProperties.playerWin}}</p>
+          </div>
+          <p><b>This match:</b></p>
+          <div>
+            <p>YOU moved: {{gameProperties.thisMatch.playerMoved}} - COM moved: {{gameProperties.thisMatch.comMoved}}</p>
+            <p>YOUR chess piece left: {{gameProperties.thisMatch.playerLeft}}</p>
+            <p>COM chess piece left: {{gameProperties.thisMatch.comLeft}}</p>
+            <br/>
+            <p>Overview of YOUR match:</p>
+            <table class="match-overview">
+              <tr ng-repeat="r in gameProperties.thisMatch.overview.player">
+                <td ng-repeat="c in r" class="{{gameProperties.thisMatch.map[$parent.$index][$index].active === 'player' ? 'active' : ''}}">{{c.score}}</td>
+              </tr>
+            </table>
+            <br/>
+            <p>Overview of COM match:</p>
+            <table class="match-overview com">
+              <tr ng-repeat="r in gameProperties.thisMatch.overview.com">
+                <td ng-repeat="c in r" class="{{gameProperties.thisMatch.map[$parent.$index][$index].active === 'com' ? 'active' : ''}}">{{c.score}}</td>
+              </tr>
+            </table>
+          </div>
+          <p style="text-align:center;margin:20px 0px 0px 0px;font-size:.8em;color:#666;border-top:1px dashed #666;">Written by vantrung1408</p>
+        </div>
+        <div class="{{congratulationMessage === '' ? '':'gameEnded'}}">
+          <p class="turn-info" ng-show="!gameProperties.thisMatch.playerLeft || !gameProperties.thisMatch.comLeft">{{congratulationMessage}}</p>
+          <div ng-repeat="r in gameProperties.thisMatch.map">
+            <div ng-repeat="c in r" ng-click="setSelectedChessPiece(c, $parent.$index, $index)" ng-switch="c.selected" class="{{c.active != '' ? 'active':''}} {{c.active}} {{c.selected ? 'selected' : ''}}">
+              <div ng-switch-when="true">
+                <div class="top" ng-click="move('top')" data-val="{{$parent.$index}}" ng-show="gameProperties.thisMatch.directionCanMove.top"></div>
+                <div class="left" ng-click="move('left')" ng-show="gameProperties.thisMatch.directionCanMove.left"></div>
+                <div class="right" ng-click="move('right')" ng-show="gameProperties.thisMatch.directionCanMove.right"></div>
+                <div class="bottom" ng-click="move('bottom')" ng-show="gameProperties.thisMatch.directionCanMove.bottom"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="history">
+          <p>HISTORY</p>
+          <div>
+            <a class="next" ng-click="history.selectedIndex = history.selectedIndex - 1" ng-show="history.selectedIndex > 0"></a>
+            <a class="prev" ng-click="history.selectedIndex = history.selectedIndex + 1" ng-show="history.selectedIndex < history.length - 1"></a>
+          </div>
+          <div class="list">
+            <div ng-repeat="h in history[history.selectedIndex]">
+              <p>{{$index + 1}}. {{h.ower}} move</p>
+              <p style="font-size:12px;">({{h.time}})</p>
+              <table class="match-overview">
+                <tr ng-repeat="r in h">
+                  <td ng-repeat="c in r" class="{{c.active ? 'active':''}} {{c.active}}">{{c.score}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/angular.min.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
