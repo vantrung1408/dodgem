@@ -2,8 +2,9 @@
 
 <html ng-app="dodgem">
   <head>
-    <link href="./css/app.css" rel="stylesheet" type="text/css"/>
+    <link href="https://vantrung1408.github.io/dodgem/css/app.css" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <title>Dodgem game by vantrung1408</title>
   </head>
   <body ng-controller="MainController">
     <div class="start-panel" ng-hide="gameStarted">
@@ -48,7 +49,7 @@
               </tr>
             </table>
           </div>
-          <p style="text-align:center;margin:20px 0px 0px 0px;font-size:.8em;color:#666;border-top:1px dashed #666;">Written by vantrung1408</p>
+          <p style="text-align:center;margin:20px 0px 0px 0px;font-size:.8em;color:#666;border-top:1px dashed #666;"><a href="https://vantrung1408.github.io/dodgem" target="_blank">Written by vantrung1408</a></p>
         </div>
         <div class="{{congratulationMessage === '' ? '':'gameEnded'}}">
           <p class="turn-info" ng-show="!gameProperties.thisMatch.playerLeft || !gameProperties.thisMatch.comLeft">{{congratulationMessage}}</p>
@@ -83,8 +84,8 @@
         </div>
       </div>
     </div>
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/angular.min.js"></script>
-    <script src="./js/app.js"></script>
+    <script src="https://vantrung1408.github.io/dodgem/js/jquery.min.js"></script>
+    <script src="https://vantrung1408.github.io/dodgem/js/angular.min.js"></script>
+    <script src="https://vantrung1408.github.io/dodgem/js/app.js"></script>
   </body>
 </html>

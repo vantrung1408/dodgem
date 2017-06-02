@@ -235,7 +235,7 @@ angular.module('dodgem', []).controller('MainController', ($scope, $timeout, $in
             }
 
             for(let i = 0; i < root.childs.length; i++){
-                //console.log(`Level ${level}: ${i}`);
+                ////console.log(`Level ${level}: ${i}`);
                 $scope.initTree(root.childs[i], active === 'com' ? 'player' : 'com', level - 1);
             }
         }
@@ -391,7 +391,7 @@ angular.module('dodgem', []).controller('MainController', ($scope, $timeout, $in
                 });
             }
             if (it.directionCanMove.bottom === true) {
-                console.log('Exception: Com can move down to bottom')
+                //console.log('Exception: Com can move down to bottom')
                 com.posCanBeNextStop.push({
                     x: it.x,
                     y: it.y,
@@ -435,9 +435,9 @@ angular.module('dodgem', []).controller('MainController', ($scope, $timeout, $in
                 it.index = ind;
                 return it.totalScore === maxScore;
             })
-            console.log(tempPosCanBeNextStop);
+            //console.log(tempPosCanBeNextStop);
             let rand = Math.floor((Math.random() * tempPosCanBeNextStop.length - 1) + 1);
-            //console.log(com);
+            ////console.log(com);
             let nextMove = {
                 x: tempPosCanBeNextStop[rand].nextStop === 'top' ? tempPosCanBeNextStop[rand].x - 1 : tempPosCanBeNextStop[rand].nextStop === 'bottom' ? tempPosCanBeNextStop[rand].x + 1 : tempPosCanBeNextStop[rand].x,
                 y: tempPosCanBeNextStop[rand].nextStop === 'left' ? tempPosCanBeNextStop[rand].y - 1 : tempPosCanBeNextStop[rand].nextStop === 'right' ? tempPosCanBeNextStop[rand].y + 1 : tempPosCanBeNextStop[rand].y
@@ -470,7 +470,7 @@ angular.module('dodgem', []).controller('MainController', ($scope, $timeout, $in
             result = calculationNextStop();
         }
 
-        console.log(result);
+        //console.log(result);
 
         return result;
     }
@@ -495,7 +495,7 @@ angular.module('dodgem', []).controller('MainController', ($scope, $timeout, $in
             $scope.gameProperties.thisMatch.playerLeft = 0;
             $scope.endGame();
         }
-        //console.log($scope.findPosition('player'));
+        ////console.log($scope.findPosition('player'));
     }
 
     $scope.move = (nextStop) => {
